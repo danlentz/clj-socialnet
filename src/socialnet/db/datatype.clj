@@ -24,6 +24,19 @@
            [?e :db/ident ?dt]]
       (db/db))))
 
+(defrule instance-of [?dt ?e]
+  [?e :dt/dt ?dt])
+
+(defrule instance-of [?dt ?e]
+  [?dt :dt/parent ?p]
+  (instance-of ?p ?e))
+
+(defn all-instances [dt]
+  (map (comp entity first)
+       (d/q '[:find ?e :in $ % ?dt :where
+              (instance-of ?dt ?e)]
+            (db/db) (all-rules) dt)))
+
 (defn datatype-doc [dt]
   (:db/doc (entity dt)))
 
@@ -42,11 +55,6 @@
 
 (defn datatype-direct-slots [dt]
   (:dt/slots (entity dt)))
-
-;; (defn datatype-slots [dt]
-;;   (into (reduce clojure.set/union
-;;           (map datatype-direct-slots (datatype-ancestors dt)))
-;;     (datatype-direct-slots dt)))
 
 (defrule effective-slot [?dt ?s]
   [?dt :dt/slots ?i]
