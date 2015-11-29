@@ -32,7 +32,7 @@
   (instance-of ?p ?e))
 
 (defn all-instances [dt]
-  (map (comp entity first)
+  (map first
        (d/q '[:find ?e :in $ % ?dt :where
               (instance-of ?dt ?e)]
             (db/db) (all-rules) dt)))
