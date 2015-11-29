@@ -1,6 +1,6 @@
 # clj-socialnet
 
-A Clojure library designed to ... well, that part is up to you.
+Move along.  Nothing to see here.
 
 ## Usage
 
