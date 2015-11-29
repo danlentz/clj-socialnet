@@ -2,10 +2,6 @@
 
 Move along.  Nothing to see here.
 
-## Usage
-
-FIXME
-
 ## License
 
 Copyright © 2015 Dan Lentz
