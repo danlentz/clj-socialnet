@@ -1,0 +1,55 @@
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;
+;;;  User Attributes
+;;;
+
+[
+ []
+
+ ;;;
+;;;  User Datatype
+;;;
+
+ [
+  {:db/id #db/id[:db.part/user -1]
+   :db/ident :user
+   :dt/dt :dt/dt
+   :dt/parent :t
+   :dt/namespace "model"
+   :dt/name "User"
+   :db/doc "Abstract Superclass of Social Network Users."
+   :dt/slots []}
+  ]
+
+
+;;;
+;;;  Twit Aggregates
+;;;
+
+ [
+  {:db/id #db/id[:db.part/user -1]
+   :dt/dt :dt/dt
+   :dt/namespace "model"
+   :dt/name "User[]"
+   :db/ident :user*
+   :dt/parent :t*
+   :db/doc "Single-dimensional aggregate of concrete User subclass instances"
+   :dt/component :user
+   :dt/_list :user
+   :dt/slots []}
+
+  {:db/id #db/id[:db.part/user -2]
+   :dt/dt :dt/dt
+   :dt/namespace "model"
+   :dt/name "User[][]"
+   :db/ident :user**
+   :dt/parent :t**
+   :db/doc "Multi-dimensional aggregate of concrete User subclass instances"
+   :dt/component #db/id[:db.part/user -1]
+   :dt/_list #db/id[:db.part/user -1]
+   :dt/slots []}
+  ]
+
+ ]

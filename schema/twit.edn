@@ -89,7 +89,7 @@
   {:db/id #db/id[:db.part/user -1]
    :db/ident :twit
    :dt/dt :dt/dt
-   :dt/parent :t
+   :dt/parent :user
    :dt/namespace "model"
    :dt/name "Twit"
    :db/doc "Twitter User."
@@ -115,7 +115,7 @@
    :dt/namespace "model"
    :dt/name "Twit[]"
    :db/ident :twit*
-   :dt/parent :t*
+   :dt/parent :user*
    :db/doc "Single-dimensional aggregate of Twit datatype instances"
    :dt/component :twit
    :dt/_list :twit
@@ -126,7 +126,7 @@
    :dt/namespace "model"
    :dt/name "Twit[][]"
    :db/ident :twit**
-   :dt/parent :t**
+   :dt/parent :user**
    :db/doc "Multi-dimensional aggregate of Twit datatype instances"
    :dt/component #db/id[:db.part/user -1]
    :dt/_list #db/id[:db.part/user -1]
