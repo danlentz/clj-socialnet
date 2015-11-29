@@ -8,14 +8,12 @@
   (:import  [twitter.callbacks.protocols SyncSingleCallback]))
 
 
-
 (defn- make-creds []
   ((juxt :consumer-key :consumer-secret :access-token :access-secret)
    (dedn/config-value :auth :twitter)))
 
 (defn creds []
   (apply make-oauth-creds (make-creds)))
-
 
 (defn fetch-user [screen-name]
   (:body (users-show :oauth-creds (creds)
@@ -34,16 +32,7 @@
 
 (comment
 
-
-
-
-
-
 (fetch-user "danlentz")
-
-
-
-
 
 #_
 (users-show :oauth-creds my-creds :params {:screen-name "bobdc"})
