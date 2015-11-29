@@ -68,6 +68,13 @@
    :db.install/_attribute :db.part/db}
 
   {:db/id #db/id[:db.part/db]
+   :db/ident :twit/geo-enabled
+   :db/valueType :db.type/boolean
+   :db/cardinality :db.cardinality/one
+   :db/doc "Twitter User GeoTag Enabled?"
+   :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
    :db/ident :twit/follows
    :db/valueType :db.type/ref
    :db/cardinality :db.cardinality/many
@@ -83,7 +90,7 @@
    :db/ident :twit
    :dt/dt :dt/dt
    :dt/parent :t
-   :dt/namespace "user"
+   :dt/namespace "model"
    :dt/name "Twit"
    :db/doc "Twitter User."
    :dt/slots [:twit/name
@@ -93,6 +100,7 @@
               :twit/url
               :twit/image-url
               :twit/location
+              :twit/geo-enabled
               :twit/follows
               :twit/created]}
   ]
@@ -104,7 +112,7 @@
  [
   {:db/id #db/id[:db.part/user -1]
    :dt/dt :dt/dt
-   :dt/namespace "user"
+   :dt/namespace "model"
    :dt/name "Twit[]"
    :db/ident :twit*
    :dt/parent :t*
@@ -115,7 +123,7 @@
 
   {:db/id #db/id[:db.part/user -2]
    :dt/dt :dt/dt
-   :dt/namespace "user"
+   :dt/namespace "model"
    :dt/name "Twit[][]"
    :db/ident :twit**
    :dt/parent :t**
