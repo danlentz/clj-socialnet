@@ -51,6 +51,16 @@
 ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(defn entity [e]
+  (if (associative? e)
+    e
+    (d/entity (db) e)))
+
+(defn describe
+  "Returns the Concise Bounded Description (CBD) of an entity 'e'"
+  [e]
+  (d/touch (entity e)))
+
 (defn entity-id [e]
   (cond
     (number? e)      (long e)

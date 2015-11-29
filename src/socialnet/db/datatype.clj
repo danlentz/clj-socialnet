@@ -7,15 +7,7 @@
             [clojure.pprint     :as   pp]
             [socialnet.db.rules :refer [defrule clear-rulebase! all-rules] :as rule]
             [socialnet.db.fn    :refer [defdbfn dbfn clear-fnbase! all-dbfn] :as fn]
-            [socialnet.db.ops   :as   db]))
-
-(defn entity [e]
-  (d/entity (db/db) e))
-
-(defn describe
-  "Returns the Concise Bounded Description (CBD) of an entity 'e'"
-  [e]
-  (d/touch (entity e)))
+            [socialnet.db.ops   :refer [entity describe] :as db]))
 
 (defn all-datatypes []
   (map first
