@@ -11,3 +11,4 @@ pom.xml.asc
 .hg/
 /resources/config.edn
 /resources/followers.edn
+/resources/user.edn
