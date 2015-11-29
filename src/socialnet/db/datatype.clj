@@ -1,5 +1,6 @@
 (ns socialnet.db.datatype
   "Datatype Metamodel API"
+  (:refer-clojure :exclude [cat])
   (:require [datomic.api        :as    d]
             [datomic.db         :as  ddb]
             [datomic.common     :as  dcm]

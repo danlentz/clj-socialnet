@@ -9,10 +9,40 @@
 
 
 
-(def my-creds nil #_(make-oauth-creds *app-consumer-key*
-                                *app-consumer-secret*
-                                *user-access-token*
-                                *user-access-token-secret*))
+(defn- make-creds []
+  ((juxt :consumer-key :consumer-secret :access-token :access-secret)
+   (dedn/config-value :auth :twitter)))
+
+(defn creds []
+  (apply make-oauth-creds (make-creds)))
+
+
+(defn fetch-user [screen-name]
+  (:body (users-show :oauth-creds (creds)
+                     :params {:screen-name screen-name})))
+
+(defn fetch-user-by-id [id]
+  (:body (users-lookup :oauth-creds (creds)
+                       :params {:user-id id})))
+
+(defn fetch-follower-ids [screen-name]
+  (:ids (followers-ids    :oauth-creds (creds)
+                          :callbacks (SyncSingleCallback. response-return-body
+                                                          response-throw-error
+                                                          exception-rethrow)
+                          :params {:target-screen-name screen-name})))
+
+(comment
+
+
+
+
+
+
+(fetch-user "danlentz")
+
+
+
 
 
 #_
@@ -21,33 +51,14 @@
 (followers-list :oauth-creds my-creds
                 :params {:target-screen-name "danlentz"})
 
-
-(defn fetch-user [s]
-  (users-show :oauth-creds my-creds
-              :params {:screen-name s}))
-
-(defn fetch-user-by-id [id]
-  (users-lookup :oauth-creds my-creds
-                :params {:user-id id}))
-
-(defn fetch-follower-ids [s]
-  (:ids (followers-ids    :oauth-creds my-creds
-                          :callbacks (SyncSingleCallback. response-return-body
-                                                          response-throw-error
-                                                          exception-rethrow)
-                          :params {:target-screen-name s})))
-
-
-
-
 ; shows the users friends
 
 ; use a custom callback function that only returns the body of the response
-(friendships-show :oauth-creds my-creds
+(friendships-show :oauth-creds (creds)
                   :callbacks (SyncSingleCallback. response-return-body
                                                   response-throw-error
                                                   exception-rethrow)
-          :params {:target-screen-name "danlentz"})
+          :params {:target-screen-name "bobdc"})
 
 ; post a text status, using the default sync-single callback
 (statuses-update :oauth-creds *creds*
@@ -57,3 +68,4 @@
 (statuses-update-with-media :oauth-creds *creds*
                             :body [(file-body-part "/pics/test.jpg")
                                   (status-body-part "testing")])
+)

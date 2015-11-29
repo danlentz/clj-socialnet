@@ -8,9 +8,8 @@
 
   :dependencies [[org.clojure/clojure "1.7.0"]
                  [org.clojure/tools.logging "0.3.1"]
-		 [twitter-api "1.0.0"]
+		 [twitter-api "0.7.8"]
                  [clj-http "2.0.0"]
-                 [cheshire "5.5.0"]
                  [com.datomic/datomic-pro "0.9.5153" :exclusions [joda-time]]
                  [com.stuartsierra/component "0.3.0"]
                  [datomic-schematode "0.1.0-RC3"]
