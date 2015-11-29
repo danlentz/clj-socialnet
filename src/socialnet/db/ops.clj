@@ -59,12 +59,15 @@
 (defn describe
   "Returns the Concise Bounded Description (CBD) of an entity 'e'"
   [e]
-  (d/touch (entity e)))
+  (if (map? e)
+    e
+    (d/touch (entity e))))
 
 (defn entity-id [e]
   (cond
     (number? e)      (long e)
-    (associative? e) (:db/id e)))
+    (associative? e) (:db/id e)
+    true             (util/exception IllegalArgumentException :entity e)))
 
 (defn excise-entity [e-or-eid]
   @(d/transact (conn)
