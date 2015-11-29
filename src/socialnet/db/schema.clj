@@ -45,9 +45,6 @@
          (deref)))
      (register-schema! schema-designator)))
 
-(defn- all-schema []
-  (map schema-value (required-schema)))
-
 (defn load-all-schema! [db-spec & schema-designators]
   (if (empty? schema-designators)
     (apply load-all-schema! db-spec (required-schema))
