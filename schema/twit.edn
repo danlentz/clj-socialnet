@@ -61,6 +61,13 @@
    :db.install/_attribute :db.part/db}
 
   {:db/id #db/id[:db.part/db]
+   :db/ident :twit/lang
+   :db/valueType :db.type/string
+   :db/cardinality :db.cardinality/one
+   :db/doc "Twitter User Language Localization Identifier"
+   :db.install/_attribute :db.part/db}
+
+  {:db/id #db/id[:db.part/db]
    :db/ident :twit/created
    :db/valueType :db.type/instant
    :db/cardinality :db.cardinality/one
@@ -98,6 +105,7 @@
               :twit/namestring
               :twit/description
               :twit/url
+              :twit/lang
               :twit/image-url
               :twit/location
               :twit/geo-enabled
