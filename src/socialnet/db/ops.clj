@@ -14,15 +14,15 @@
 
 (defonce initialized-latch (promise))
 
-(def ^:dynamic *db* nil)
-
+(def ^:dynamic *db*   nil)
+(def ^:dynamic *conn* nil)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Database Connectivity
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defn conn
-  ([]     (d/connect (state/db-spec)))
+  ([]     (or *conn* (d/connect (state/db-spec))))
   ([spec] (d/connect spec)))
 
 (defn- initialize-db [spec]
@@ -37,9 +37,7 @@
     (deliver initialized-latch true)))
 
 (defn db
-  ([]
-     (or *db*
-       (db (state/db-spec))))
+  ([] (or *db* (db (state/db-spec))))
   ([spec]
      (ensure-db spec)))
 
