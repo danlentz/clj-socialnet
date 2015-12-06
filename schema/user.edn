@@ -12,6 +12,7 @@
    :db/valueType :db.type/uuid
    :db/cardinality :db.cardinality/one
    :db/doc "Unique Identity"
+;;   :db/unique :db.unique/value
    :db.install/_attribute :db.part/db}
   ]
 
@@ -26,7 +27,7 @@
    :dt/parent :t
    :dt/namespace "model"
    :dt/name "User"
-   :db/doc "Superclass of all Social Network Users."
+   :db/doc "Superclass of all locally populated Social Network Users."
    :dt/slots [:user/uuid]}
   ]
 
