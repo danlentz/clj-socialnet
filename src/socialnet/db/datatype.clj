@@ -20,14 +20,15 @@
   [?e :dt/dt ?dt])
 
 (defrule instance-of [?dt ?e]
-  [?dt :dt/parent ?p]
+  [?i  :dt/parent ?dt]
+  [?i  :db/ident  ?p]
   (instance-of ?p ?e))
 
 (defn all-instances [dt]
-  (map first
-       (d/q '[:find ?e :in $ % ?dt :where
-              (instance-of ?dt ?e)]
-            (db/db) (all-rules) dt)))
+   (map first
+        (d/q '[:find ?e :in $ % ?dt :where
+               (instance-of ?dt ?e)]
+             (db/db) (all-rules) dt)))
 
 (defn datatype-doc [dt]
   (:db/doc (entity dt)))
