@@ -6,14 +6,18 @@
 ;;;
 
 [
- []
+ [
+  {:db/id #db/id[:db.part/db]
+   :db/ident :user/uuid
+   :db/valueType :db.type/uuid
+   :db/cardinality :db.cardinality/one
+   :db/doc "Unique Identity"
+   :db.install/_attribute :db.part/db}
+  ]
 
 ;;;
 ;;;  User Datatype
 ;;;
-;;; NOTE: may add slots and generate concrete instances to serve as sameAs
-;;; relation to unify unique individuals holding accounts among several
-;;; social network services.
 
  [
   {:db/id #db/id[:db.part/user -1]
@@ -22,8 +26,8 @@
    :dt/parent :t
    :dt/namespace "model"
    :dt/name "User"
-   :db/doc "Abstract Superclass of all Social Network Users."
-   :dt/slots []}
+   :db/doc "Superclass of all Social Network Users."
+   :dt/slots [:user/uuid]}
   ]
 
 
