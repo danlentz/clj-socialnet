@@ -1,6 +1,8 @@
 (ns socialnet.api.twitter
   (:require [clojure.tools.logging :as log]
+            [com.stuartsierra.component :as component]
             [socialnet.edn  :as dedn]
+            [socialnet.api.protocols  :as p]
             [socialnet.util :as util])
   (:require [twitter.oauth :as oauth :refer :all]
             [twitter.callbacks :as cb :refer :all]
@@ -13,8 +15,36 @@
   ((juxt :consumer-key :consumer-secret :access-token :access-secret)
    (dedn/config-value :auth :twitter)))
 
-(defn creds []
+(defn- creds []
   (apply make-oauth-creds (make-creds)))
+
+(defn oauth-credential [config]
+  (apply make-oauth-creds
+         ((juxt :consumer-key :consumer-secret :access-token :access-secret)
+          (-> config :auth :twitter))))
+
+(defrecord TwitterEndpoint [auth state cache]
+  component/Lifecycle
+  (start [self]
+    (util/returning (assoc self
+                           :state (atom {:idx 0})
+                           :cache (atom {}))
+      (log/info :TWITTER-ENDPOINT {:event :started}))
+    )
+  (stop [self]
+    nil)
+  p/EndPoint
+  (make-request [self op lambda args]
+    (p/->Request (java.util.UUID/randomUUID) op lambda args))
+  (execute [self request]
+    )
+  (decode [self response]
+    )
+  )
+
+(defn make-twitter-endpoint [config]
+  (map->TwitterEndpoint {:auth (oauth-credential config)}))
+
 
 (defn fetch-user* [screen-name]
   (log/info :API-FETCH-USER-BY-NAME screen-name)

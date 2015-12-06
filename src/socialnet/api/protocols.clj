@@ -1,9 +1,9 @@
 (ns socialnet.api.protocols)
 
 (defprotocol EndPoint
-  (request [self op args])
-  (execute [self request])
-  (decode  [self response]))
+  (make-request [self op lambda args])
+  (execute      [self request])
+  (decode       [self response]))
 
 (defrecord Request  [id op lambda args])
 

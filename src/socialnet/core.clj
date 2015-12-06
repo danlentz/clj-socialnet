@@ -3,6 +3,7 @@
   (:require [socialnet.nrepl :as nrepl]
             [socialnet.state :as state]
             [socialnet.edn   :as dedn]
+            [socialnet.api.twitter :as twitter]
             [socialnet.util  :as util]))
 
 (def system nil)
@@ -14,7 +15,8 @@
    (let [config (dedn/resource-value configuraton-designator nil)]
      (component/system-map
       :config config
-      :nrepl  (nrepl/make-nrepl-server config)))))
+      :nrepl   (nrepl/make-nrepl-server       config)
+      :twitter (twitter/make-twitter-endpoint config)))))
 
 
 
